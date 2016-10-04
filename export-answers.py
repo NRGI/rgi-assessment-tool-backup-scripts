@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import requests
 import csv
-import re
 import sys
 
 from datetime import datetime
