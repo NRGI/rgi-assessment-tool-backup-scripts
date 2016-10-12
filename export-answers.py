@@ -8,8 +8,8 @@ from datetime import datetime
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-SERVER_NAME = 'localhost:3030'
-DESTINATION_PATH = "/home/alex/projects/backup-scripts"
+SERVER_NAME = 'rgi.nrgi-assessment.org'
+DESTINATION_PATH = "/Users/cperry/Box Sync/RAD/RGI/raw_data"
 
 PORTION_SIZE = 100
 
