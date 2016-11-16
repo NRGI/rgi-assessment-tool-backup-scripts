@@ -13,7 +13,7 @@ DESTINATION_PATH = "/Users/cperry/Box Sync/RAD/RGI/raw_data"
 
 PORTION_SIZE = 100
 
-csv_header = ['country_code']
+csv_header = ['country_code', 'iso2_country_code', 'iso2_code']
 answers = []
 loaded_completely = False
 page = 0
@@ -40,9 +40,12 @@ with open('raw_data' + datetime.now().strftime('%Y-%m-%d-%H:%M:%S') + '.csv', "w
             if key is "country_code":
                 answer.append(answer_data["answer_ID"][0:answer_data["answer_ID"].index('-')])
             else:
-                try:
-                    answer.append(answer_data[key])
-                except KeyError:
-                    answer.append("")
+                if key is "iso2_country_code":
+                    answer.append(answer_data["iso2_code"][0:answer_data["iso2_code"].index('-')])
+                else:
+                    try:
+                        answer.append(answer_data[key])
+                    except KeyError:
+                        answer.append("")
 
         csv_writer.writerow(answer)
