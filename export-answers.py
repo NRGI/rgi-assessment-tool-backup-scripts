@@ -38,7 +38,7 @@ with open('raw_data' + datetime.now().strftime('%Y-%m-%d-%H:%M:%S') + '.csv', "w
 
         for key in csv_header:
             if key is "country_code":
-                answer.append(answer_data["answer_ID"][0:2])
+                answer.append(answer_data["answer_ID"][0:answer_data["answer_ID"].index('-')])
             else:
                 try:
                     answer.append(answer_data[key])
