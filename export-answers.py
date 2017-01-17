@@ -29,6 +29,8 @@ while not loaded_completely:
         if not (field in csv_header):
             csv_header.append(field)
 
+csv_header.remove('answer_ID')
+
 with open('raw_data' + datetime.now().strftime('%Y-%m-%d-%H:%M:%S') + '.csv', "w") as csv_file:
     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
     csv_writer.writerow(csv_header)
@@ -40,9 +42,10 @@ with open('raw_data' + datetime.now().strftime('%Y-%m-%d-%H:%M:%S') + '.csv', "w
             if key is "country_code":
                 answer.append(answer_data["answer_ID"][0:answer_data["answer_ID"].index('-')])
             else:
-                try:
-                    answer.append(answer_data[key])
-                except KeyError:
-                    answer.append("")
+                if key is not "answer_ID":
+                    try:
+                        answer.append(answer_data[key])
+                    except KeyError:
+                        answer.append("")
 
         csv_writer.writerow(answer)
