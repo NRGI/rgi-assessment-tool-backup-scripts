@@ -8,8 +8,8 @@ from datetime import datetime
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-SERVER_NAME = 'rgi.nrgi-assessment.org'
-DESTINATION_PATH = "/Users/cperry/Box Sync/RAD/RGI/raw_data"
+SERVER_NAME = 'localhost:3030'
+DESTINATION_PATH = "/home/alex/projects/backup-scripts"
 
 PORTION_SIZE = 100
 
@@ -29,14 +29,25 @@ while not loaded_completely:
         if not (field in csv_header):
             csv_header.append(field)
 
+sorted_header = []
+
+for field in csv_header:
+    if not ("comment" in field) and not ("flag" in field):
+        sorted_header.append(field)
+
+for sorted_field in ["comment", "flag"]:
+    for field in csv_header:
+        if sorted_field in field:
+            sorted_header.append(field)
+
 with open('raw_data' + datetime.now().strftime('%Y-%m-%d-%H:%M:%S') + '.csv', "w") as csv_file:
     csv_writer = csv.writer(csv_file, delimiter=',', quotechar='"')
-    csv_writer.writerow(csv_header)
+    csv_writer.writerow(sorted_header)
 
     for answer_data in answers:
         answer = []
 
-        for key in csv_header:
+        for key in sorted_header:
             try:
                 answer.append(answer_data[key])
             except KeyError:
